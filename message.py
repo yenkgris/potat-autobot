@@ -1,7 +1,6 @@
 import requests
 import time
 import traceback
-import json
 
 potatoReadyAt = 0
 stealReadyAt = 0
@@ -9,23 +8,20 @@ cdrReadyAt = 0
 statuscheck = True
 currentPotatoData = False
 switchedChannel = False
-broadcasterId = 95676405
+broadcasterId = {channelID}
 twitchHeaders = {
-    "Authorization": "Bearer 81bnxff1j1omghah4u2dchrltatriu",
-    "Client-ID": "im7plrnwhiw13n04bugjq6ndn9mn5e",
+    "Authorization": "Bearer {YOURTOKENHERE}",
+    "Client-ID": "{YOURAPPIDHERE}",
 }
 nextUpdateMessage = time.time() + 3600
 
-with open('quiz.json') as file:
-    qa_data = json.load(file)
-
 potatHeaders = {
-    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc2NzI3OTY3NSIsImxvZ2luIjoiZXNzaXR5XyIsIm5hbWUiOiLjg5Xjgqfjg6Djgrfjg6Pjg7zjgq8iLCJzdHZfaWQiOiI2MjkwZjFmN2EwNTU5NTJmZGMzYmI5OWIiLCJpc19jaGFubmVsIjpmYWxzZSwiaWF0IjoxNzI0NTA1OTAxLCJleHAiOjE3NDAzMTcxMDF9.wVA_Ex8ajw9RAAYzA2mpeC5rIyE5tgmp-7gaa9wFCW4",
+    "Authorization": "Bearer {YOURPOTATTOKENHERE}",
     "Content-Type": "application/json",
 }
 
-def getPotatoInfo():
-    response = requests.get("https://api.potat.app/users/essity_")
+def getPotatoInfo(): #contacts potat api and grabs necessary flags
+    response = requests.get("https://api.potat.app/users/{YOURUSERHERE}")
     if response.status_code == 200:
         potatoData = response.json()['data'][0]['potatoes']
         if type(potatoData['cdr']['readyAt']) == None:
@@ -41,13 +37,13 @@ def getPotatoInfo():
     else:
         print(response.text)
 
-print("CertifiedForsenLevelMomentSignedByDonaldTrumpHimself")
+print("forsen") #debugging line
 
 def sendTwitchMessage(message):
     literalMessage = message
     try:
         message = message.replace("#", "%23")
-        response = requests.post(f"https://api.twitch.tv/helix/chat/messages?broadcaster_id={broadcasterId}&sender_id=767279675&message={message}", headers=twitchHeaders)
+        response = requests.post(f"https://api.twitch.tv/helix/chat/messages?broadcaster_id={broadcasterId}&sender_id={YOURID}&message={message}", headers=twitchHeaders)
         if response.status_code == 200:
             if response.json()['data'][0]['is_sent']:
                 print(f"WOW!!! {literalMessage}!")
@@ -60,7 +56,7 @@ def sendTwitchMessage(message):
     except TimeoutError:
         print(f"Maybe send message {literalMessage}, reason: TimeoutError")
 
-sendTwitchMessage("CertifiedForsenLevelMomentSignedByDonaldTrumpHimself")  
+sendTwitchMessage("forsen")  #debugging line
 
 potatoInfo = getPotatoInfo()
 farmSize = potatoInfo[4]
@@ -166,8 +162,8 @@ while True:
             sendTwitchMessage(message)
             lastPotatoes = currentPotatoes
         
-        if stealready == False and potatoready == False and cdrready == False and quizready == False and statuscheck == True:
-            sendTwitchMessage("#status essity_")
+        if stealready == False and potatoready == False and cdrready == False and quizready == False and statuscheck == True: #sends "#status {YOURUSER}" to work with irc.py's cooldowns calculation
+            sendTwitchMessage("#status {YOURUSER}")
             currentPotatoData = False
             statuscheck = False
 
