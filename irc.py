@@ -50,7 +50,7 @@ while True:
                         def sendmessagenow():
                             sock.send(f"PRIVMSG {channel} :{final_answer}\n".encode('utf-8'))
                         print(message)
-                        message = message.replace(" @フェムシャーク ", "").lower() #removes the username to correctly read from quiz.json
+                        message = message.replace(" @youruser ", "").lower() #removes the username to correctly read from quiz.json
                         print(f"final message{message}")
 
                         answer = get_question_answa(message)
