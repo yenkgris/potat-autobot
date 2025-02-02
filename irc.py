@@ -31,7 +31,7 @@ while True:
     resp = sock.recv(2048).decode('utf-8')
 
     if resp.startswith('PING'):
-        sock.send("PONG :tmi.twitch.tv\n".encode('utf-8'))
+        sock.send("PONG :tmi.twitch.tv\n".encode('utf-8')) #Prevents twitch autodisconnecting if you dont pong back
 
     elif len(resp) > 0:
         parts = resp.split(':', 2)
@@ -55,6 +55,6 @@ while True:
 
                         answer = get_question_answa(message)
                         final_answer = (f"#a {answer}")
-                        timer = threading.Timer(8.0, sendmessagenow) #
+                        timer = threading.Timer(8.0, sendmessagenow) #done because eventapi is sometimes slow and if you answer too fast it wont recognize it, you could lower this but 8 seconds is pretty alright
                         timer.start()
                         
