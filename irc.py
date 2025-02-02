@@ -8,7 +8,7 @@ with open('quiz.json') as file: #loads quiz.json with the quizes and their respe
 
 server = 'irc.chat.twitch.tv'
 port = 6667
-nickname = 'essity_'
+nickname = '{YOURNICKNAME}'
 token = 'oauth:{YOURTOKENHERE}'
 channel = '#{YOURCHANNELHERE}'
 required_ending = "(You have five minutes to answer correctly, time starts now!)"
