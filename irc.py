@@ -54,7 +54,7 @@ try:
 
             if "ACTION" in message:
                  message = clear_message(message)
-                 if username.lower() == 'PotatBotat' and required_ending in message:
+                 if username.lower() == 'PotatBotat'.lower() and required_ending in message:
                      
                     message = message.replace(" @{YOURUSER} ", "").lower() #Added this because I have a japanese display name and it messed up the question recognition, this also works with normal usernames
                     answer = get_question_answer(message)
